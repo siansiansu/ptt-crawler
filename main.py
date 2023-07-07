@@ -69,7 +69,7 @@ for art in arts:
         context = get_context(link)
         contexts.append(context)
 
-with open('index.csv', 'w') as f:
+with open('index.csv', 'w', encoding='UTF-8') as f:
     write = csv.writer(f)
     write.writerow(['date', 'title', 'author', 'article', 'url'])
     write.writerows(contexts)
