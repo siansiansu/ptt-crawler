@@ -36,11 +36,11 @@ def save_text(context, filename):
     if os.path.isfile('./articles/{}.txt'.format(filename)):
         print("[INFO] {} already exists, skip.".format(filename))
         return
-    with open('./articles/{}.txt'.format(filename), 'w', encoding='utf-8') as f:
+    with open('./articles/{}.txt'.format(filename), 'w', encoding='utf-8-sig') as f:
         f.write(context)
 
 def save_index(context):
-    with open('./index.csv', 'w', encoding='utf-8') as f:
+    with open('./index.csv', 'w', encoding='utf-8-sig') as f:
         f.write(context)
 
 def get_context(url):
@@ -69,7 +69,7 @@ for art in arts:
         context = get_context(link)
         contexts.append(context)
 
-with open('index.csv', 'w', encoding='UTF-8') as f:
+with open('index.csv', 'w', encoding='utf-8-sig') as f:
     write = csv.writer(f)
     write.writerow(['date', 'title', 'author', 'article', 'url'])
     write.writerows(contexts)
