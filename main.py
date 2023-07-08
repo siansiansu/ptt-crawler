@@ -24,6 +24,9 @@ keywords = "疫情,校正回歸,高端,超前部署,新冠,確診"
 
 # 從這個頁面往前搜尋
 pageUrl = 'https://www.ptt.cc/bbs/Gossiping/index26353.html'
+
+# 搜尋到這頁結束
+endUrl = 'https://www.ptt.cc/bbs/Gossiping/index855.html'
 #####################################################################
 Path("./{}".format(downloadFolder)).mkdir(parents=True, exist_ok=True)
 
@@ -120,6 +123,8 @@ def search_a_page(pageUrl):
                 logging.info("[含有關鍵字，處理中] 日期：{}，標題：{}".format(date, title))
                 filename = title.replace('/', '_')
                 filename = title.replace(' ', '_')
+                filename = title.replace('"', '_')
+                filename = title.replace('?', '_')
                 save_text(date, article, filename)
                 df2 = pd.DataFrame([date, title, author, article, link]).T
                 df2.columns = ['日期', '標題', '作者', '內容', '網址']
@@ -130,7 +135,11 @@ def search_a_page(pageUrl):
     df.to_csv('{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index=False)
 
     nextLink = 'https://www.ptt.cc' + rootPage.find("a", string="‹ 上頁")["href"]
+    if nextLink == endUrl:
+        logging.info("搜尋結束")
+        sys.exit(0)
     logging.info("搜尋下一頁：{}".format(nextLink))
     return search_a_page(nextLink)
 
 search_a_page(pageUrl)
+logging.info("搜尋結束")
