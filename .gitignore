@@ -163,3 +163,4 @@ cython_debug/
 .idea
 articles
 index.csv
+.DS_Store
