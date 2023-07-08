@@ -23,7 +23,7 @@ downloadFolder = "關於疫情的文章"
 keywords = "疫情,校正回歸,高端,超前部署,新冠,確診"
 
 # 從這個頁面往前搜尋
-pageUrl = 'https://www.ptt.cc/bbs/Gossiping/index.html'
+pageUrl = 'https://www.ptt.cc/bbs/Gossiping/index26353.html'
 #####################################################################
 Path("./{}".format(downloadFolder)).mkdir(parents=True, exist_ok=True)
 
@@ -118,7 +118,9 @@ def search_a_page(pageUrl):
                 author = ""
             if check_keyword(article):
                 logging.info("[含有關鍵字，處理中] 日期：{}，標題：{}".format(date, title))
-                save_text(date, article, title.replace('/', '_'))
+                filename = title.replace('/', '_')
+                filename = title.replace(' ', '_')
+                save_text(date, article, filename)
                 df2 = pd.DataFrame([date, title, author, article, link]).T
                 df2.columns = ['日期', '標題', '作者', '內容', '網址']
                 df = pd.concat([df, df2], ignore_index=True, axis=0)
