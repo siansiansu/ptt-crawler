@@ -73,20 +73,21 @@ def check_date(date):
 
 def save_text(date, context, filename):
     month = get_month(date)
-    Path("./{}/{}".format(downloadFolder, month)).mkdir(parents=True, exist_ok=True)
+    Path(os.path.join(downloadFolder, month)).mkdir(parents=True, exist_ok=True)
 
-    with open('./{}/{}/{}.txt'.format(downloadFolder, month, filename), 'w', encoding='utf-8-sig') as f:
+    dest = os.path.join(downloadFolder, month, filename)
+    with open(dest, 'w', encoding='utf-8-sig') as f:
         f.write(context)
 
 def search_a_page(pageUrl):
     rootPage = get_page(pageUrl)
     arts = rootPage.find_all('div', class_='r-ent')
 
-    if not os.path.isfile('{}/索引.csv'.format(downloadFolder)):
+    if not os.path.isfile(r'{}/索引.csv'.format(downloadFolder)):
         indexCSV = pd.DataFrame(columns=['日期', '標題', '作者', '內容', '網址'], index=None)
-        indexCSV.to_csv('{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index=False)
+        indexCSV.to_csv(r'{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index=False)
 
-    df = pd.read_csv('{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index_col=False)
+    df = pd.read_csv(r'{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index_col=False)
 
     for art in arts:
         try:
@@ -132,7 +133,7 @@ def search_a_page(pageUrl):
             else:
                 logging.info("[不含有關鍵字，略過這篇內容] 日期：{} ，標題：{}".format(date, title))
     df.drop_duplicates(subset=['網址'], inplace=True)
-    df.to_csv('{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index=False)
+    df.to_csv(r'{}/索引.csv'.format(downloadFolder), encoding='utf-8-sig', index=False)
 
     nextLink = 'https://www.ptt.cc' + rootPage.find("a", string="‹ 上頁")["href"]
     if nextLink == endUrl:
