@@ -122,10 +122,7 @@ def search_a_page(pageUrl):
                 author = ""
             if check_keyword(article):
                 logging.info("[含有關鍵字，處理中] 日期：{}，標題：{}".format(date, title))
-                filename = title.replace('/', '_')
-                filename = title.replace(' ', '_')
-                filename = title.replace('"', '_')
-                filename = title.replace('?', '_')
+                filename = title.replace('/', '_').replace(' ', '_').replace('"', '_').replace('?', '_').replace('\\', '_')
                 save_text(date, article, filename)
                 df2 = pd.DataFrame([date, title, author, article, link]).T
                 df2.columns = ['日期', '標題', '作者', '內容', '網址']
