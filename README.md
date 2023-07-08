@@ -1,21 +1,9 @@
 # PTT 爬蟲
 
-![./gif/demo.gif](./gif/demo.gif)
-
 ## 使用方式
 
 ```bash
 pip install -r requirements.txt
-python ./main.py
-```
-
-
-## 範例
-
-
-```bash
-cd Desktop # 切換到桌面
-python ./main.py
 python ./main.py
 ```
 
