@@ -8,14 +8,23 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from pathlib import Path
 
-start_date = str(sys.argv[1])
-end_date = str(sys.argv[2])
-downloadFolder = sys.argv[3]
-keywords = sys.argv[4]
+# 改這裡
+#####################################################################
+# 開始的時間
+start_date = "2023-01-01"
+
+# 結束時間
+end_date = "2023-07-07"
+
+# 下載文章放的資料夾
+downloadFolder = "關於疫情的文章"
+
+# 搜尋什麼關鍵字
+keywords = "疫情,校正回歸,高端,超前部署,新冠,確診"
 
 # 從這個頁面往前搜尋
 pageUrl = 'https://www.ptt.cc/bbs/Gossiping/index.html'
-
+#####################################################################
 Path("./{}".format(downloadFolder)).mkdir(parents=True, exist_ok=True)
 
 now = datetime.now()
